@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Presidentes por Posição</title>
+<meta name="description" content="Os 35 governos do Brasil de 1889 a hoje, por era e posição política, com linha do tempo estática e interativa, placar e fontes.">
+<meta property="og:title" content="Quem governou o Brasil?">
+<meta property="og:description" content="Os 35 governos do Brasil de 1889 a hoje, por era e posição política.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/slide-01-light.webp">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161a21" media="(prefers-color-scheme: dark)">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+/* Layout: página de entrada em uma coluna larga sobre papel quadriculado; topo com a linha dos 35 mandatos, depois os dois caminhos lado a lado. */
+:root{
+  color-scheme:light;
+  --paper:#f7f5ef; --grid:#e5e2d8; --ink:#15181d; --muted:#4a5060; --card:#ffffff; --hi:#ffd84a; --ghost:#b4b8c0; --line:#d9d5c8; --edge:#15181d;
+  --jair:#2559a8;
+  --fd:#142c5e; --d:#2559a8; --cd:#5b8ed6; --c:#8c8672; --ce:#e0735a; --e:#a8261a;
+  --show-lt:block; --show-dk:none;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#161a21; --grid:#20262f; --ink:#eef0f3; --muted:#a3acba; --card:#1e232c; --hi:#7a6410; --ghost:#4f5866; --line:#2e3542; --edge:#5f6b7f; --jair:#78a6ea; --fd:#4a6fb8; --d:#78a6ea; --cd:#a8c6f0; --c:#8a8f9b; --ce:#ef8065; --e:#e0524a; --show-lt:none; --show-dk:block; color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#161a21; --grid:#20262f; --ink:#eef0f3; --muted:#a3acba; --card:#1e232c; --hi:#7a6410; --ghost:#4f5866; --line:#2e3542; --edge:#5f6b7f; --jair:#78a6ea; --fd:#4a6fb8; --d:#78a6ea; --cd:#a8c6f0; --c:#8a8f9b; --ce:#ef8065; --e:#e0524a; --show-lt:none; --show-dk:block; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;
+  color:var(--ink);font:17px/1.5 var(--font);padding-block:32px 72px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:88px}
+h1,h2,h3{font-weight:850;letter-spacing:-.025em;line-height:1;text-wrap:balance;margin:0}
+h1{font-size:clamp(44px,9vw,96px)}
+h2{font-size:clamp(30px,5.6vw,48px)}
+h3{font-size:28px;letter-spacing:-.015em}
+p{margin:0}
+a{color:inherit}
+mark{background:linear-gradient(transparent 56%,var(--hi) 56% 92%,transparent 92%);color:inherit;padding:0 3px}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lead{font-size:clamp(18px,2.4vw,21px);line-height:1.45;max-width:58ch}
+.small{font-size:14px;color:var(--muted)}
+:focus-visible{outline:3px solid var(--jair);outline-offset:3px}
+.p-fd{--pc:var(--fd)}.p-d{--pc:var(--d)}.p-cd{--pc:var(--cd)}.p-c{--pc:var(--c)}.p-ce{--pc:var(--ce)}.p-e{--pc:var(--e)}.p-gap{--pc:var(--ghost)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;padding:5px 9px;border-radius:8px;
+  border:1.5px solid color-mix(in srgb,var(--pc) 70%,var(--ink));color:var(--ink);background:color-mix(in srgb,var(--pc) 16%,var(--card))}
+.chip::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--pc);flex:none}
+.pic{display:block;position:relative}
+.pic img{width:100%;height:auto}
+.pic .lt{display:var(--show-lt)} .pic .dk{display:var(--show-dk)}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:center}
+.hero-text{display:flex;flex-direction:column;gap:20px;min-width:0}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:16px;text-decoration:none;border-radius:999px;padding:13px 20px;border:2px solid var(--ink);min-height:48px;transition:transform .15s}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn .ar{font-size:20px;line-height:1}
+.stack{position:relative;aspect-ratio:1/1.05;max-width:100%}
+.stack .pic{position:absolute;width:52%;border-radius:18px;overflow:hidden;border:3px solid var(--edge);box-shadow:8px 8px 0 var(--edge);background:var(--card)}
+.stack .s1{left:4%;top:6%;transform:rotate(-4deg)}
+.stack .s2{right:4%;top:0;transform:rotate(3deg)}
+/* régua */
+.rulerbox{display:flex;flex-direction:column;gap:6px}
+.eras{position:relative;height:26px}
+.era-b{position:absolute;top:0;bottom:0;border-left:1.5px solid var(--muted);padding:2px 0 0 6px;font-size:10.5px;font-weight:800;letter-spacing:.04em;color:var(--muted);white-space:nowrap;overflow:hidden}
+.ruler{position:relative;height:36px;touch-action:pan-y}
+.ruler::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--ink)}
+.seg{position:absolute;top:0;bottom:0;min-width:3px;background:none;border:0;padding:0;margin:0;appearance:none;display:block}
+.seg::before{content:"";position:absolute;left:.5px;right:.5px;top:50%;height:10px;margin-top:-5px;border-radius:5px;background:var(--pc);transition:height .12s,margin-top .12s}
+.seg.gap::before{height:4px;margin-top:-2px;border-radius:0;background:repeating-linear-gradient(90deg,var(--muted) 0 3px,transparent 3px 6px)}
+.seg.hl::before{height:18px;margin-top:-9px;box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink)}
+.ticks{position:relative;height:18px}
+.tick{position:absolute;transform:translateX(-50%);font-size:11px;font-weight:800;color:var(--muted)}
+.tick.l{transform:none}.tick.r{transform:translateX(-100%)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px;font-size:13px;font-weight:800}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.lg b{width:12px;height:12px;border-radius:3px;background:var(--pc);border:1.5px solid var(--edge)}
+.lg i{font-style:normal;color:var(--muted)}
+.lg i::before{content:"· "}
+#tip{position:fixed;z-index:50;width:max-content;max-width:min(300px,calc(100vw - 16px));background:var(--card);color:var(--ink);border:2px solid var(--edge);border-radius:12px;padding:10px 12px 11px;
+  box-shadow:4px 4px 0 var(--edge);pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+#tip[hidden]{display:none}
+#tip .t-name{font-weight:800;font-size:18px;line-height:1.1}
+#tip .t-meta{font-weight:800;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+#tip .t-tag{font-size:13px;line-height:1.3;color:var(--muted)}
+#tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-8px;width:12px;height:12px;background:var(--card);border-right:2px solid var(--edge);border-bottom:2px solid var(--edge);transform:translateX(-50%) rotate(45deg)}
+#tip.below::after{top:-8px;bottom:auto;border:0;border-left:2px solid var(--edge);border-top:2px solid var(--edge)}
+/* dois caminhos */
+.sec{display:flex;flex-direction:column;gap:28px}
+.sec-h{display:flex;flex-direction:column;gap:10px;max-width:64ch}
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.path{display:flex;flex-direction:column;background:var(--card);border:3px solid var(--edge);border-radius:20px;box-shadow:8px 8px 0 var(--edge);overflow:hidden;min-width:0}
+.path .pic{border-bottom:3px solid var(--edge);background:var(--paper)}
+.path-body{display:flex;flex-direction:column;gap:12px;padding:22px 24px 24px;flex:1}
+.tagline{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.path ul{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.path li{position:relative;padding-left:20px;font-size:15.5px;line-height:1.4}
+.path li::before{content:"";position:absolute;left:0;top:7px;width:9px;height:9px;border-radius:2px;background:var(--ink)}
+.path .btn{margin-top:auto;align-self:flex-start}
+.path-body .spacer{flex:1}
+/* placar */
+.score{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:start}
+.bars{display:flex;flex-direction:column;gap:16px}
+.bt{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bv{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bv b{color:var(--ink);font-size:17px}
+.btrack{height:22px;margin-top:8px;border:2px solid var(--edge);border-left:0;border-radius:0 8px 8px 0;background:var(--card);position:relative}
+.btrack i{position:absolute;left:0;top:0;bottom:0;background:var(--pc)}
+.zero{background:var(--card);border:3px solid var(--e);border-radius:20px;box-shadow:8px 8px 0 var(--e);padding:24px;display:flex;flex-direction:column;gap:12px}
+.zero .big{font-size:96px;line-height:.9;font-weight:900;color:var(--e);letter-spacing:-.04em}
+.zero .chips{display:flex;flex-wrap:wrap;gap:6px}
+/* carrossel */
+.strip{list-style:none;margin:0;padding:4px 4px 18px;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory}
+.strip li{flex:none;width:min(210px,46vw);scroll-snap-align:start}
+.strip .pic{aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:2px solid var(--edge);box-shadow:5px 5px 0 var(--edge)}
+/* fontes */
+.how{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
+.how p{color:var(--muted);font-size:16px;max-width:60ch}
+.how p+p{margin-top:12px}
+.srcs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.srcs li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.srcs a{font-weight:800;text-decoration-thickness:2px;text-underline-offset:3px;overflow-wrap:anywhere}
+.srcs span{font-size:13px;font-weight:700;color:var(--muted)}
+footer{border-top:2px solid var(--ink);padding-top:16px;font-size:13px;color:var(--muted)}
+@media (max-width:820px){
+  .hero,.paths,.score,.how{grid-template-columns:minmax(0,1fr)}
+  .wrap{gap:64px}
+  .stack{max-width:460px;width:100%}
+  .era-b{font-size:9px;letter-spacing:0;padding-left:3px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">Brasil · 1889 até hoje · 35 governos</div>
+      <h1>Quem <mark>governou</mark> o Brasil?</h1>
+      <p class="lead">Todos os presidentes da República, era por era, com a posição política de cada governo. Leia do começo ao fim ou explore governo a governo.</p>
+      <div class="ctas">
+        <a class="btn solid" href="https://claude.ai/artifact/3XMPqJeneLK5xcxVGGoEnw" target="_blank" rel="noopener noreferrer">Explorar governo a governo <span class="ar">→</span></a>
+        <a class="btn ghost" href="https://claude.ai/artifact/XpY7TpTNGSNDH36LYP6Lfn" target="_blank" rel="noopener noreferrer">Ler a linha do tempo <span class="ar">→</span></a>
+      </div>
+      <p class="small">Feito com as matérias da Agência Câmara e o artigo da Revista Fórum.</p>
+    </div>
+    <div class="stack" aria-hidden="true"><span class="pic s1"><img class="lt" src="img/slide-01-light.webp" alt=""><img class="dk" src="img/slide-01-dark.webp" alt="" aria-hidden="true"></span><span class="pic s2"><img class="lt" src="img/slide-08-light.webp" alt=""><img class="dk" src="img/slide-08-dark.webp" alt="" aria-hidden="true"></span></div>
+  </header>
+
+  <section class="sec" aria-labelledby="h-linha">
+    <div class="sec-h"><div class="eyebrow">135 anos numa linha</div><h2 id="h-linha">Cada trecho é um mandato, em escala</h2>
+      <p class="small">Passe o mouse ou o dedo sobre a linha para ver o presidente de cada trecho.</p></div>
+    <div class="rulerbox"><div class="eras" aria-hidden="true"><div class="era-b" style="left:0.000%;width:29.917%">REPÚBLICA VELHA</div><div class="era-b" style="left:29.917%;width:10.944%">VARGAS</div><div class="era-b" style="left:40.861%;width:13.456%">1945–64</div><div class="era-b" style="left:54.317%;width:15.298%">DITADURA</div><div class="era-b" style="left:69.615%;width:30.385%">NOVA REPÚBLICA</div></div><div class="ruler" role="group" aria-label="Linha dos mandatos, em escala"><button type="button" class="seg p-cd" style="left:0.000%;width:1.477%" data-id="deodoro" data-label="Deodoro da Fonseca, 1889–1891, Centro-direita" data-name="Deodoro da Fonseca" data-meta="1889–1891 · 2 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="Proclamou a República e foi o primeiro presidente" aria-label="Deodoro da Fonseca, 1889–1891, Centro-direita"></button><button type="button" class="seg p-c" style="left:1.477%;width:2.175%" data-id="floriano" data-label="Floriano Peixoto, 1891–1894, Centro" data-name="Floriano Peixoto" data-meta="1891–1894 · 2 anos e 11 meses" data-pos="c" data-poslabel="Centro" data-tag="O &quot;Marechal de Ferro&quot;, consolidador da República" aria-label="Floriano Peixoto, 1891–1894, Centro"></button><button type="button" class="seg p-cd" style="left:3.651%;width:2.921%" data-id="prudente" data-label="Prudente de Morais, 1894–1898, Centro-direita" data-name="Prudente de Morais" data-meta="1894–1898 · 4 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="Primeiro civil na Presidência" aria-label="Prudente de Morais, 1894–1898, Centro-direita"></button><button type="button" class="seg p-d" style="left:6.572%;width:2.921%" data-id="campos" data-label="Campos Sales, 1898–1902, Direita" data-name="Campos Sales" data-meta="1898–1902 · 4 anos" data-pos="d" data-poslabel="Direita" data-tag="A política dos governadores" aria-label="Campos Sales, 1898–1902, Direita"></button><button type="button" class="seg p-cd" style="left:9.493%;width:2.921%" data-id="rodrigues" data-label="Rodrigues Alves, 1902–1906, Centro-direita" data-name="Rodrigues Alves" data-meta="1902–1906 · 4 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="Reformou o Rio de Janeiro" aria-label="Rodrigues Alves, 1902–1906, Centro-direita"></button><button type="button" class="seg p-cd" style="left:12.414%;width:1.883%" data-id="pena" data-label="Afonso Pena, 1906–1909, Centro-direita" data-name="Afonso Pena" data-meta="1906–1909 · 2 anos e 6 meses" data-pos="cd" data-poslabel="Centro-direita" data-tag="O mineiro que manteve o café com leite" aria-label="Afonso Pena, 1906–1909, Centro-direita"></button><button type="button" class="seg p-c" style="left:14.297%;width:1.038%" data-id="nilo" data-label="Nilo Peçanha, 1909–1910, Centro" data-name="Nilo Peçanha" data-meta="1909–1910 · 17 meses" data-pos="c" data-poslabel="Centro" data-tag="Abriu a crise do café com leite" aria-label="Nilo Peçanha, 1909–1910, Centro"></button><button type="button" class="seg p-cd" style="left:15.336%;width:2.921%" data-id="hermes" data-label="Hermes da Fonseca, 1910–1914, Centro-direita" data-name="Hermes da Fonseca" data-meta="1910–1914 · 4 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="Marechal, Revolta da Chibata e Contestado" aria-label="Hermes da Fonseca, 1910–1914, Centro-direita"></button><button type="button" class="seg p-cd" style="left:18.257%;width:2.921%" data-id="wenceslau" data-label="Wenceslau Brás, 1914–1918, Centro-direita" data-name="Wenceslau Brás" data-meta="1914–1918 · 4 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="O Brasil entra na Primeira Guerra" aria-label="Wenceslau Brás, 1914–1918, Centro-direita"></button><button type="button" class="seg p-cd" style="left:21.178%;width:0.510%" data-id="delfim" data-label="Delfim Moreira, 1918–1919, Centro-direita" data-name="Delfim Moreira" data-meta="1918–1919 · 8 meses" data-pos="cd" data-poslabel="Centro-direita" data-tag="A &quot;regência republicana&quot;" aria-label="Delfim Moreira, 1918–1919, Centro-direita"></button><button type="button" class="seg p-cd" style="left:21.688%;width:2.411%" data-id="epitacio" data-label="Epitácio Pessoa, 1919–1922, Centro-direita" data-name="Epitácio Pessoa" data-meta="1919–1922 · 3 anos e 3 meses" data-pos="cd" data-poslabel="Centro-direita" data-tag="Obras contra a seca no Nordeste" aria-label="Epitácio Pessoa, 1919–1922, Centro-direita"></button><button type="button" class="seg p-d" style="left:24.099%;width:2.921%" data-id="bernardes" data-label="Arthur Bernardes, 1922–1926, Direita" data-name="Arthur Bernardes" data-meta="1922–1926 · 4 anos" data-pos="d" data-poslabel="Direita" data-tag="Repressão a sindicatos e imprensa de esquerda" aria-label="Arthur Bernardes, 1922–1926, Direita"></button><button type="button" class="seg p-d" style="left:27.020%;width:2.877%" data-id="washington" data-label="Washington Luís, 1926–1930, Direita" data-name="Washington Luís" data-meta="1926–1930 · 3 anos e 11 meses" data-pos="d" data-poslabel="Direita" data-tag="O último da República Velha" aria-label="Washington Luís, 1926–1930, Direita"></button><button type="button" class="seg p-c" style="left:29.917%;width:5.126%" data-id="vargas1" data-label="Getúlio Vargas, 1930–1937, Centro" data-name="Getúlio Vargas" data-meta="1930–1937 · 7 anos" data-pos="c" data-poslabel="Centro" data-tag="Governo provisório e constitucional" aria-label="Getúlio Vargas, 1930–1937, Centro"></button><button type="button" class="seg p-d" style="left:35.043%;width:5.818%" data-id="vargas2" data-label="Getúlio Vargas, 1937–1945, Direita" data-name="Getúlio Vargas" data-meta="1937–1945 · 7 anos e 11 meses" data-pos="d" data-poslabel="Direita" data-tag="Estado Novo, a ditadura" aria-label="Getúlio Vargas, 1937–1945, Direita"></button><button type="button" class="seg p-c" style="left:40.861%;width:0.188%" data-id="linhares" data-label="José Linhares, 1945–1946, Centro" data-name="José Linhares" data-meta="1945–1946 · 3 meses" data-pos="c" data-poslabel="Centro" data-tag="Presidente do STF no comando do país" aria-label="José Linhares, 1945–1946, Centro"></button><button type="button" class="seg p-d" style="left:41.049%;width:3.651%" data-id="dutra" data-label="Eurico Gaspar Dutra, 1946–1951, Direita" data-name="Eurico Gaspar Dutra" data-meta="1946–1951 · 5 anos" data-pos="d" data-poslabel="Direita" data-tag="A Constituição de 1946" aria-label="Eurico Gaspar Dutra, 1946–1951, Direita"></button><button type="button" class="seg p-ce" style="left:44.700%;width:2.601%" data-id="vargas3" data-label="Getúlio Vargas, 1951–1954, Centro-esquerda" data-name="Getúlio Vargas" data-meta="1951–1954 · 3 anos e 6 meses" data-pos="ce" data-poslabel="Centro-esquerda" data-tag="A volta pelo voto" aria-label="Getúlio Vargas, 1951–1954, Centro-esquerda"></button><div class="seg gap" style="left:47.301%;width:1.050%" data-gap="1" data-name="Interinos" data-meta="1954–1956" data-pos="gap" data-poslabel="Sem classificação" data-tag="Café Filho, Carlos Luz e Nereu Ramos"></div><button type="button" class="seg p-cd" style="left:48.351%;width:3.651%" data-id="jk" data-label="Juscelino Kubitschek, 1956–1961, Centro-direita" data-name="Juscelino Kubitschek" data-meta="1956–1961 · 5 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="Plano de Metas e Brasília" aria-label="Juscelino Kubitschek, 1956–1961, Centro-direita"></button><button type="button" class="seg p-d" style="left:52.003%;width:0.412%" data-id="janio" data-label="Jânio Quadros, 1961, Direita" data-name="Jânio Quadros" data-meta="1961 · 6 meses" data-pos="d" data-poslabel="Direita" data-tag="Renunciou em agosto de 1961" aria-label="Jânio Quadros, 1961, Direita"></button><button type="button" class="seg p-ce" style="left:52.441%;width:1.876%" data-id="jango" data-label="João Goulart, 1961–1964, Centro-esquerda" data-name="João Goulart" data-meta="1961–1964 · 2 anos e 6 meses" data-pos="ce" data-poslabel="Centro-esquerda" data-tag="Derrubado pelo golpe de 1964" aria-label="João Goulart, 1961–1964, Centro-esquerda"></button><button type="button" class="seg p-fd" style="left:54.343%;width:2.127%" data-id="castelo" data-label="Castelo Branco, 1964–1967, Extrema direita" data-name="Castelo Branco" data-meta="1964–1967 · 2 anos e 11 meses" data-pos="fd" data-poslabel="Extrema direita" data-tag="O primeiro general do regime" aria-label="Castelo Branco, 1964–1967, Extrema direita"></button><button type="button" class="seg p-fd" style="left:56.470%;width:1.799%" data-id="costa" data-label="Costa e Silva, 1967–1969, Extrema direita" data-name="Costa e Silva" data-meta="1967–1969 · 2 anos e 5 meses" data-pos="fd" data-poslabel="Extrema direita" data-tag="O AI-5" aria-label="Costa e Silva, 1967–1969, Extrema direita"></button><div class="seg gap" style="left:58.269%;width:0.120%" data-gap="1" data-name="Interinos" data-meta="1969" data-pos="gap" data-poslabel="Sem classificação" data-tag="Junta Militar"></div><button type="button" class="seg p-fd" style="left:58.389%;width:3.193%" data-id="medici" data-label="Emílio Garrastazu Médici, 1969–1974, Extrema direita" data-name="Emílio Garrastazu Médici" data-meta="1969–1974 · 4 anos e 4 meses" data-pos="fd" data-poslabel="Extrema direita" data-tag="Anos de chumbo e milagre econômico" aria-label="Emílio Garrastazu Médici, 1969–1974, Extrema direita"></button><button type="button" class="seg p-fd" style="left:61.582%;width:3.651%" data-id="geisel" data-label="Ernesto Geisel, 1974–1979, Extrema direita" data-name="Ernesto Geisel" data-meta="1974–1979 · 5 anos" data-pos="fd" data-poslabel="Extrema direita" data-tag="A abertura &quot;lenta, gradual e segura&quot;" aria-label="Ernesto Geisel, 1974–1979, Extrema direita"></button><button type="button" class="seg p-fd" style="left:65.233%;width:4.382%" data-id="figueiredo" data-label="João Figueiredo, 1979–1985, Extrema direita" data-name="João Figueiredo" data-meta="1979–1985 · 6 anos" data-pos="fd" data-poslabel="Extrema direita" data-tag="O último general" aria-label="João Figueiredo, 1979–1985, Extrema direita"></button><button type="button" class="seg p-cd" style="left:69.615%;width:3.651%" data-id="sarney" data-label="José Sarney, 1985–1990, Centro-direita" data-name="José Sarney" data-meta="1985–1990 · 5 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="A transição" aria-label="José Sarney, 1985–1990, Centro-direita"></button><button type="button" class="seg p-d" style="left:73.266%;width:2.039%" data-id="collor" data-label="Fernando Collor, 1990–1992, Direita" data-name="Fernando Collor" data-meta="1990–1992 · 2 anos e 9 meses" data-pos="d" data-poslabel="Direita" data-tag="O impeachment" aria-label="Fernando Collor, 1990–1992, Direita"></button><button type="button" class="seg p-cd" style="left:75.305%;width:1.467%" data-id="itamar" data-label="Itamar Franco, 1992–1995, Centro-direita" data-name="Itamar Franco" data-meta="1992–1995 · 2 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="O Plano Real" aria-label="Itamar Franco, 1992–1995, Centro-direita"></button><button type="button" class="seg p-cd" style="left:76.772%;width:5.842%" data-id="fhc" data-label="Fernando Henrique Cardoso, 1995–2003, Centro-direita" data-name="Fernando Henrique Cardoso" data-meta="1995–2003 · 8 anos" data-pos="cd" data-poslabel="Centro-direita" data-tag="Dois mandatos do PSDB" aria-label="Fernando Henrique Cardoso, 1995–2003, Centro-direita"></button><button type="button" class="seg p-ce" style="left:82.614%;width:5.842%" data-id="lula1" data-label="Lula, 2003–2011, Centro-esquerda" data-name="Lula" data-meta="2003–2011 · 8 anos" data-pos="ce" data-poslabel="Centro-esquerda" data-tag="Primeiro presidente do PT" aria-label="Lula, 2003–2011, Centro-esquerda"></button><button type="button" class="seg p-ce" style="left:88.456%;width:4.136%" data-id="dilma" data-label="Dilma Rousseff, 2011–2016, Centro-esquerda" data-name="Dilma Rousseff" data-meta="2011–2016 · 5 anos e 7 meses" data-pos="ce" data-poslabel="Centro-esquerda" data-tag="Primeira mulher na Presidência" aria-label="Dilma Rousseff, 2011–2016, Centro-esquerda"></button><button type="button" class="seg p-d" style="left:92.592%;width:1.706%" data-id="temer" data-label="Michel Temer, 2016–2018, Direita" data-name="Michel Temer" data-meta="2016–2018 · 2 anos e 4 meses" data-pos="d" data-poslabel="Direita" data-tag="Teto de gastos e reforma trabalhista" aria-label="Michel Temer, 2016–2018, Direita"></button><button type="button" class="seg p-fd" style="left:94.298%;width:2.921%" data-id="bolsonaro" data-label="Jair Bolsonaro, 2019–2022, Extrema direita" data-name="Jair Bolsonaro" data-meta="2019–2022 · 4 anos" data-pos="fd" data-poslabel="Extrema direita" data-tag="Agenda conservadora nos costumes" aria-label="Jair Bolsonaro, 2019–2022, Extrema direita"></button><button type="button" class="seg p-ce" style="left:97.219%;width:2.781%" data-id="lula3" data-label="Lula, 2023–hoje, Centro-esquerda" data-name="Lula" data-meta="2023–hoje · em curso" data-pos="ce" data-poslabel="Centro-esquerda" data-tag="Terceiro mandato" aria-label="Lula, 2023–hoje, Centro-esquerda"></button></div><div class="ticks" aria-hidden="true"><span class="tick l" style="left:0.000%">1889</span><span class="tick " style="left:29.917%">1930</span><span class="tick " style="left:40.861%">1945</span><span class="tick " style="left:54.317%">1964</span><span class="tick " style="left:69.615%">1985</span><span class="tick r" style="left:100.000%">hoje</span></div><div class="legend" aria-label="Legenda das posições, com o número de governos"><span class="lg p-fd"><b></b>Extrema direita<i>6</i></span><span class="lg p-d"><b></b>Direita<i>8</i></span><span class="lg p-cd"><b></b>Centro-direita<i>12</i></span><span class="lg p-c"><b></b>Centro<i>4</i></span><span class="lg p-ce"><b></b>Centro-esquerda<i>5</i></span><span class="lg p-e"><b></b>Esquerda<i>0</i></span></div></div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-ver">
+    <div class="sec-h"><div class="eyebrow">Duas formas de ver</div><h2 id="h-ver">Escolha por onde começar</h2></div>
+    <div class="paths">
+      <article class="path">
+        <a href="https://claude.ai/artifact/XpY7TpTNGSNDH36LYP6Lfn" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span class="pic "><img class="lt" src="img/estatica-light.webp" alt="Print da Linha do Tempo Presidencial"><img class="dk" src="img/estatica-dark.webp" alt="" aria-hidden="true"></span></a>
+        <div class="path-body">
+          <span class="tagline">Para ler do começo ao fim</span>
+          <h3>Linha do Tempo Presidencial</h3>
+          <p>Os 35 governos em cartões, era por era, com um resumo de cada mandato e o motivo da classificação.</p>
+          <ul><li>Linha em escala com balão ao passar o mouse</li><li>Clique num trecho para ir direto ao governo</li><li>Placar de quantos anos cada posição governou</li></ul>
+          <span class="spacer"></span>
+          <a class="btn ghost" href="https://claude.ai/artifact/XpY7TpTNGSNDH36LYP6Lfn" target="_blank" rel="noopener noreferrer">Abrir a linha do tempo <span class="ar">→</span></a>
+        </div>
+      </article>
+      <article class="path">
+        <a href="https://claude.ai/artifact/3XMPqJeneLK5xcxVGGoEnw" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span class="pic "><img class="lt" src="img/interativa-light.webp" alt="Print da página Presidentes, Governo a Governo, com o balão aberto"><img class="dk" src="img/interativa-dark.webp" alt="" aria-hidden="true"></span></a>
+        <div class="path-body">
+          <span class="tagline">Para explorar</span>
+          <h3>Presidentes, Governo a Governo</h3>
+          <p>A mesma linha, agora para filtrar e abrir cada governo com o que marcou o mandato e de onde vem o rótulo.</p>
+          <ul><li>Filtros por posição política e por era</li><li>Detalhes de cada governo, com fonte do rótulo</li><li>Botões para passar ao governo anterior ou seguinte</li></ul>
+          <span class="spacer"></span>
+          <a class="btn solid" href="https://claude.ai/artifact/3XMPqJeneLK5xcxVGGoEnw" target="_blank" rel="noopener noreferrer">Explorar governo a governo <span class="ar">→</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-placar">
+    <div class="sec-h"><div class="eyebrow">Placar</div><h2 id="h-placar">Quanto tempo cada posição governou</h2>
+      <p class="small">Soma dos anos de mandato dos 35 governos. Interinos ficam de fora.</p></div>
+    <div class="score">
+      <div class="bars"><div class="brow p-fd"><div class="bt"><span class="chip p-fd">Extrema direita</span><span class="bv"><b>25 anos</b> · 6 governos</span></div><div class="btrack"><i style="width:55.5%"></i></div></div><div class="brow p-d"><div class="bt"><span class="chip p-d">Direita</span><span class="bv"><b>31 anos</b> · 8 governos</span></div><div class="btrack"><i style="width:68.6%"></i></div></div><div class="brow p-cd"><div class="bt"><span class="chip p-cd">Centro-direita</span><span class="bv"><b>45 anos</b> · 12 governos</span></div><div class="btrack"><i style="width:100.0%"></i></div></div><div class="brow p-c"><div class="bt"><span class="chip p-c">Centro</span><span class="bv"><b>12 anos</b> · 4 governos</span></div><div class="btrack"><i style="width:26.2%"></i></div></div><div class="brow p-ce"><div class="bt"><span class="chip p-ce">Centro-esquerda</span><span class="bv"><b>24 anos</b> · 5 governos</span></div><div class="btrack"><i style="width:52.9%"></i></div></div><div class="brow p-e"><div class="bt"><span class="chip p-e">Esquerda</span><span class="bv"><b>0 anos</b> · 0 governos</span></div><div class="btrack"><i style="width:0.0%"></i></div></div></div>
+      <aside class="zero">
+        <span class="big">0</span>
+        <h3>governos de esquerda</h3>
+        <p>A esquerda costuma considerar os governos mais à esquerda da lista como centro-esquerda, e o artigo da Revista Fórum segue essa leitura.</p>
+        <div class="chips"><span class="chip p-ce">Vargas · 1951–1954</span><span class="chip p-ce">João Goulart · 1961–1964</span><span class="chip p-ce">Lula · 2003–2011</span><span class="chip p-ce">Dilma Rousseff · 2011–2016</span><span class="chip p-ce">Lula · 2023–hoje</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-car">
+    <div class="sec-h"><div class="eyebrow">Também em stories</div><h2 id="h-car">A pesquisa em 10 slides</h2>
+      <p class="small">Versão 9:16 para stories e reels, em tema claro e escuro, além de um vídeo animado de 38 segundos.</p></div>
+    <ul class="strip" aria-label="Slides do carrossel"><li><span class="pic "><img class="lt" src="img/slide-01-light.webp" alt="Capa: Quem governou o Brasil?"><img class="dk" src="img/slide-01-dark.webp" alt="" aria-hidden="true"></span></li><li><span class="pic "><img class="lt" src="img/slide-03-light.webp" alt="Slide da República Velha"><img class="dk" src="img/slide-03-dark.webp" alt="" aria-hidden="true"></span></li><li><span class="pic "><img class="lt" src="img/slide-05-light.webp" alt="Slide de 1945 a 1964"><img class="dk" src="img/slide-05-dark.webp" alt="" aria-hidden="true"></span></li><li><span class="pic "><img class="lt" src="img/slide-07-light.webp" alt="Slide da Nova República"><img class="dk" src="img/slide-07-dark.webp" alt="" aria-hidden="true"></span></li><li><span class="pic "><img class="lt" src="img/slide-08-light.webp" alt="Slide do placar por posição"><img class="dk" src="img/slide-08-dark.webp" alt="" aria-hidden="true"></span></li><li><span class="pic "><img class="lt" src="img/slide-09-light.webp" alt="Slide: por que nenhum governo ficou na esquerda"><img class="dk" src="img/slide-09-dark.webp" alt="" aria-hidden="true"></span></li></ul>
+  </section>
+
+  <section class="sec" aria-labelledby="h-how">
+    <div class="sec-h"><div class="eyebrow">Fontes e critério</div><h2 id="h-how">Como foi feito</h2></div>
+    <div class="how">
+      <div>
+        <p>Até 1945, os rótulos de posição são interpretação própria, a partir das matérias da Agência Câmara. De 1945 em diante, seguem a classificação do artigo da Revista Fórum, que é um veículo de linha progressista.</p>
+        <p>O eixo esquerda-direita é aproximado e anacrônico para a República Velha, quando a disputa era entre oligarquias regionais. Há divergência entre autores, sobretudo sobre Vargas, JK e Fernando Henrique.</p>
+        <p>As datas de início e fim de cada mandato foram conferidas com a lista oficial de presidentes. Cada mandato conta como um governo: Vargas aparece três vezes e Lula duas.</p>
+      </div>
+      <ul class="srcs"><li><a href="https://www.camara.leg.br/noticias/93698-os-presidentes-da-republica-velha" target="_blank" rel="noopener noreferrer">Os presidentes da República Velha</a><span>Agência Câmara, 28/12/2006</span></li><li><a href="https://www.camara.leg.br/noticias/93696-os-presidentes-da-era-vargas/" target="_blank" rel="noopener noreferrer">Os presidentes da Era Vargas</a><span>Agência Câmara, 28/12/2006</span></li><li><a href="https://revistaforum.com.br/historia/quem-mais-governou-o-brasil-esquerda-ou-direita/" target="_blank" rel="noopener noreferrer">Quem mais governou o Brasil: esquerda ou direita?</a><span>Revista Fórum, 01/07/2025</span></li></ul>
+    </div>
+  </section>
+
+  <footer>Presidentes do Brasil, 1889 até hoje. Classificação política aproximada; veja o critério acima.</footer>
+</div>
+<div id="tip" role="tooltip" hidden><span class="t-name"></span><span class="t-meta"></span><span class="chip"></span><span class="t-tag"></span></div><script>
+(function(){
+  var tip=document.getElementById('tip'),ruler=document.querySelector('.ruler');
+  if(!tip||!ruler)return;
+  var segs=[].slice.call(ruler.querySelectorAll('.seg'));
+  var cur=null;
+  var N=tip.querySelector('.t-name'),M=tip.querySelector('.t-meta'),C=tip.querySelector('.chip'),T=tip.querySelector('.t-tag');
+  function show(seg){
+    if(cur&&cur!==seg)cur.classList.remove('hl');
+    cur=seg;seg.classList.add('hl');
+    N.textContent=seg.dataset.name;M.textContent=seg.dataset.meta;
+    C.textContent=seg.dataset.poslabel;C.className='chip p-'+seg.dataset.pos;
+    T.textContent=seg.dataset.tag||'';T.hidden=!seg.dataset.tag;
+    tip.hidden=false;tip.classList.remove('below');
+    var r=seg.getBoundingClientRect(),w=tip.offsetWidth,h=tip.offsetHeight,cx=r.left+r.width/2;
+    var left=Math.max(8,Math.min(window.innerWidth-w-8,cx-w/2));
+    var top=r.top-h-12;
+    if(top<8){top=r.bottom+12;tip.classList.add('below')}
+    tip.style.left=left+'px';tip.style.top=top+'px';
+    tip.style.setProperty('--ax',Math.max(16,Math.min(w-16,cx-left))+'px');
+  }
+  function hide(){tip.hidden=true;if(cur){cur.classList.remove('hl');cur=null}}
+  function pick(e){
+    var rr=ruler.getBoundingClientRect(),x=e.clientX-rr.left,best=null,bd=1e9;
+    segs.forEach(function(s){var a=s.offsetLeft,b=a+s.offsetWidth,d=x<a?a-x:(x>b?x-b:0);if(d<bd){bd=d;best=s}});
+    return best;
+  }
+  ruler.addEventListener('pointermove',function(e){var s=pick(e);if(s&&s!==cur)show(s)});
+  ruler.addEventListener('pointerdown',function(e){var s=pick(e);if(s)show(s)});
+  ruler.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')hide()});
+  document.addEventListener('pointerdown',function(e){if(!ruler.contains(e.target)&&!tip.contains(e.target))hide()});
+  window.addEventListener('scroll',hide,{passive:true});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')hide()});
+  segs.forEach(function(s){s.addEventListener('focus',function(){show(s)});s.addEventListener('blur',hide)});
+  [].forEach.call(document.querySelectorAll('li[data-id]'),function(li){
+    var s=ruler.querySelector('.seg[data-id="'+li.dataset.id+'"]');if(!s)return;
+    li.addEventListener('mouseenter',function(){s.classList.add('hl')});
+    li.addEventListener('mouseleave',function(){s.classList.remove('hl')});
+  });
+})();
+</script>
+</body>
+</html>
