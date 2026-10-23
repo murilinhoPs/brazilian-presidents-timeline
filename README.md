@@ -6,7 +6,7 @@ Página de entrada da pesquisa sobre os 35 governos do Brasil, de 1889 até hoje
 
 1. Suba `index.html` e a pasta `img/` na raiz do repositório.
 2. Em **Settings → Pages**, escolha **Deploy from a branch**, a branch `main` e a pasta `/ (root)`.
-3. O site fica em `https://<usuario>.github.io/<repositorio>/`.
+3. O site fica em [murilinhops.github.io/brazilian-presidents-timeline](https://murilinhops.github.io/brazilian-presidents-timeline/).
 
 Os botões levam às duas linhas do tempo publicadas no Claude: a estática e a interativa.
 
